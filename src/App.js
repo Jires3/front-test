@@ -5,7 +5,7 @@ function App() {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    axios.get("https://student-backend.onrender.com/students")
+    axios.get("https://test-dky0.onrender.comstudents")
       .then(res => setStudents(res.data))
       .catch(err => console.error(err));
   }, []);
