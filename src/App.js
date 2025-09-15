@@ -1,36 +1,21 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
   const [students, setStudents] = useState([]);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/students").then((res) => {
-      setStudents(res.data);
-    });
+    axios.get("https://student-backend.onrender.com/students")
+      .then(res => setStudents(res.data))
+      .catch(err => console.error(err));
   }, []);
 
-  const addStudent = () => {
-    axios.post("http://localhost:5000/students", { name, email }).then((res) => {
-      setStudents([...students, res.data]);
-      setName("");
-      setEmail("");
-    });
-  };
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Student Tracker</h1>
-      <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-      <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <button onClick={addStudent}>Add Student</button>
-
-      <h2>All Students</h2>
+    <div>
+      <h1>Students List</h1>
       <ul>
-        {students.map((s) => (
-          <li key={s.id}>{s.name} - {s.email}</li>
+        {students.map(s => (
+          <li key={s.id}>{s.name} ({s.email})</li>
         ))}
       </ul>
     </div>
